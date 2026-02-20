@@ -1,5 +1,7 @@
+from wtforms.validators import email
+
 from flask import Flask, render_template, request, redirect, url_for
-from flask import Flask
+#from flask import Flash
 from flask_wtf.csrf import CSRFProtect
 from flask import g
 
@@ -34,6 +36,36 @@ def alumnos():
 		db.session.commit()
 		return redirect(url_for('index'))
 	return render_template("Alumnos.html")
+
+@app.route("/modificar", methods=["GET", "POST"])
+def modificar():
+	create_form = forms.UserForm2(request.form)
+	if request.method == 'GET':
+		id = request.args.get('id')
+		alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+		create_form.id.data = id
+		create_form.nombre.data = alum1.nombre
+		create_form.apaterno.data = alum1.apaterno
+		create_form.correo.data = alum1.email
+	if request.method == 'POST':
+		id = create_form.id.data
+		alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+		alum1.id = id
+		alum1.nombre = create_form.nombre.data 
+		alum1.apaterno = create_form.apaterno.data 
+		alum1.email = create_form.correo.data 
+		db.session.add(alum1)
+		db.session.commit()
+		return redirect(url_for('index'))
+	return render_template('modifcar.html', form = create_form)
+
+@app.route("/detalles", methods=['GET', 'POST'])
+def detalles():
+	create_form = forms.UserForm2(request.form)
+	if request.method == 'GET':
+		id = request.args.get('id')
+		alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+	return render_template('detalles.html', alumno = alum1)
 
 if __name__ == '__main__':
 	csrf.init_app(app)
