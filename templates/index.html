@@ -2,9 +2,10 @@
 
 {% block container %}
 
-
-
 <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+    
+    <a href="alumnos" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Nuevo Registro</a>
+
     <table class="w-full text-sm text-left rtl:text-right text-body">
         <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
             <tr>
@@ -12,10 +13,13 @@
                     Nombre
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    Apellido Parteno
+                    Apellidos
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
                     Correo
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Telefono
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
                     Action
@@ -30,10 +34,13 @@
                     {{alum.nombre}}
                 </th>
                 <td class="px-6 py-4">
-                    {{alum.apaterno}}
+                    {{alum.apellidos}}
                 </td>
                 <td class="px-6 py-4">
                     {{alum.email}}
+                </td>
+                <td class="px-6 py-4">
+                    {{alum.telefono}}
                 </td>
                 <td class="px-6 py-4">
                   <a href="/modificar?id={{alum.id}}" class="font-medium text-fg-warning-subtle hover:underline">Editar</a>
