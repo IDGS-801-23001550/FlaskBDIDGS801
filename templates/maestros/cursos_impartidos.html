@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default p-6">
+    
+    <a href="/maestros/mostrar" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Regresar</a>
+
+    <h2 class="text-xl font-bold mb-4 text-heading">Cursos impartidos por: {{ maestro.nombre }} {{ maestro.apellidos }}</h2>
+
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+        <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
+            <tr>
+                <th scope="col" class="px-6 py-3 font-medium">Materia</th>
+                <th scope="col" class="px-6 py-3 font-medium">Descripción</th>
+                <th scope="col" class="px-6 py-3 font-medium">Total de Alumnos</th>
+            </tr>
+        </thead>
+
+        <tbody>
+          {% for curso in cursos %}
+            <tr class="bg-neutral-primary-soft border-b border-default">
+                <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                    {{ curso.nombre }}
+                </th>
+                <td class="px-6 py-4">
+                    {{ curso.descripción }}
+                </td>
+                <td class="px-6 py-4">
+                    {% for alumno in curso.alumnos %}
+                        <li>{{ alumno.nombre }} {{ alumno.apellidos }}</li>
+                    {% else %}
+                        No hay alumnos inscritos en este curso.
+                    {% endfor %}
+                </td>
+            </tr>
+          {% else %}
+            <tr>
+                <td colspan="3" class="px-6 py-4 text-center">Este maestro no tiene cursos asignados actualmente.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

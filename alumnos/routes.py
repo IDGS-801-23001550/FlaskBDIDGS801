@@ -4,7 +4,6 @@ from wtforms import form
 from wtforms.validators import email
 
 from flask import Flask, render_template, request, redirect, url_for
-#from flask import Flash
 from flask_wtf.csrf import CSRFProtect
 from flask import g
 from config import DevelopmentConfig
@@ -88,3 +87,9 @@ def eliminar():
 			db.session.commit()
 		return redirect(url_for("alumnos.mostrar_alumnos"))
 	return render_template("alumnos/eliminar.html", form=create_form)
+
+@alumnos.route("/alumnos/cursos_inscrito", methods=["GET"])
+def cursos_inscritos():
+    id_alumno = request.args.get('id')
+    alumno = db.session.query(Alumnos).filter(Alumnos.id == id_alumno).first()
+    return render_template("alumnos/cursos_inscrito.html", alumno=alumno, cursos=alumno.cursos)

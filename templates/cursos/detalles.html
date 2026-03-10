@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<div class="flex flex-col items-center bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs md:flex-row md:max-w-2xl">
+    <a href="/cursos/mostrar">
+        <img class="object-cover w-16 h-16 md:w-32 md:h-32 rounded-base mb-4 md:mb-0" src="../static/src/imagen_perfil.jpg" alt="Detalles del Curso">
+    </a>
+    
+    <div class="flex flex-col justify-between md:p-4 leading-normal">
+        <h2 class="mb-2 text-4xl font-bold tracking-tight text-dark-backdrop">{{ curso.nombre }}</h2>
+        
+        <h3 class="mb-2 text-4xl font-bold tracking-tight text-heading">
+            Profesor: <span class="font-normal">{{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}</span>
+        </h3>
+        
+    <div class="bg-brand-soft p-3 rounded-base">
+        <h3 class="font-bold text-brand mb-2">
+            Estudiantes inscritos ({{ curso.alumnos|length }}):
+        </h3>
+        <ul class="list-disc list-inside text-sm text-brand-strong">
+            {% for alumno in curso.alumnos %}
+                <li>{{ alumno.nombre }} {{ alumno.apellidos }}</li>
+            {% else %}
+                <li>No hay alumnos inscritos en este curso.</li>
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
